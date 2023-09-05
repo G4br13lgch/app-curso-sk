@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Reseñas</title>
+        <h:outputStylesheet name="/css/bootstrap.min.css"/>
+        <style type="text/css">
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+            th, td {
+                text-align: left;
+                padding: 8px;
+            }
+
+            tr:nth-child(even){background-color: #f2f2f2}
+            th {
+                background-color: #4CAF50;
+                color: white;
+            }
+        </style>
+    </h:head>
+    <h:body>
+    	<h:form>
+    		<ui:include src="/components/menu.xhtml"></ui:include> 
+    		<br></br>
+    		<center>
+                <h2><h:outputText value="Mis Reseñas"/></h2>
+            </center>            
+            <h:dataTable binding="#{table}" value="#{resenaMBean.resenaDTOs}" var="r" class="table table-striped table-hover table-bordered">
+            	<h:column>
+                    <f:facet name="header">ID</f:facet>
+                    <h:outputText value="#{r.idResena}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Comentario</f:facet>
+                    <h:outputText value="#{r.comentario}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Calificacion</f:facet>                    
+                    <p:rating readonly="true" stars="5" value="#{r.calificacion}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Fecha</f:facet>
+                    <h:outputText value="#{r.fecha}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Libro</f:facet>
+                    <h:outputText value="#{r.tituloLibro}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Usuario</f:facet>
+                    <h:outputText value="#{r.nombreUsuario}"/>
+                </h:column>                
+                <h:column> 
+                    <f:facet name="header">Actualizar</f:facet>
+                    <h:commandButton action = "#{resenaMBean.openViewUpdateResena(r)}" value="Actualizar" class="btn btn-primary"> 
+                    </h:commandButton>
+                </h:column>
+                <h:column> 
+                    <f:facet name="header">Eliminar</f:facet>
+                    <h:commandButton action = "#{resenaMBean.deleteResena(r.idResena)}" value="Eliminar" class="btn btn-danger"> 
+                    </h:commandButton>
+                </h:column>
+            </h:dataTable>	                      
+    		<center>
+            	<p:commandButton value="Nueva Reseña" type="button" onclick="PF('modalNuevaResena').show();" />             
+            </center>               		                                        
+    		<p:dialog closeOnEscape="true" minWidth="600" width="700" header="Nueva Reseña" widgetVar="modalNuevaResena" modal="true" height="400">
+			        <div class="ui-g">	
+				        <div class="ui-g-6">
+						    <h5>Libro</h5>
+					    	 <p:selectOneMenu id="menuLibro" value="#{resenaMBean.resenaDTO.idLibro}">	
+						    	<f:selectItem itemValue="" itemLabel="Selecciona una opción" />				    		
+	        					 <f:selectItems value="#{resenaMBean.libroDTOs}" var="libro" itemLabel="#{libro.titulo}" itemValue="${libro.idLibro}"/>
+	    					</p:selectOneMenu>	
+					    </div>		
+					    <div class="ui-g-6">
+					    	<h5>Calificación</h5>					    	  
+		                    <p:rating stars="5" value="#{resenaMBean.resenaDTO.calificacion}" />
+					    </div>		    
+					    <div class="ui-g-12">
+					    	<h5>Comentario</h5>					    						    
+                    		<p:inputTextarea value="#{resenaMBean.resenaDTO.comentario}" style="width:100%" rows="5" cols="30" counter="display" maxlength="500" counterTemplate="{0} caracteres restantes"  autoResize="true" />   
+					   		<br />
+					   		<h:outputText id="display" />
+					   	 </div>					    					    					    					   
+					</div>	
+					<f:facet name="footer">					
+				        <p:commandButton value="Guardar" action="#{resenaMBean.addResena()}" class="btn btn-success"></p:commandButton>
+				        <p:commandButton value="Cancelar" oncomplete="PF('modalNuevaResena').hide();" />
+				    </f:facet>				          
+			</p:dialog> 
+    	</h:form>             
+    </h:body>
+</html>

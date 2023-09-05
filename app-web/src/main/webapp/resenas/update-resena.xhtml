@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">           
+    <h:head>    
+        <title>Editar Libro</title>
+        <h:outputStylesheet name="/css/bootstrap.min.css"/>
+    </h:head>
+    <h:body>
+        <h:form id="form" class="form-horizontal">
+            <div class="form-group">
+                <div class="col-sm-4"></div>
+                <div  class="col-sm-4">
+                    <h2 style="text-align: center">Editar Reseña</h2>
+                </div>
+            </div>
+            <hr/>                                            
+             <div class="ui-g">	
+				        <div class="ui-g-6">
+						    <h5>Libro</h5>
+					    	 <p:selectOneMenu id="menuLibro" value="#{resenaDTO.idLibro}">	
+						    	<f:selectItem itemValue="" itemLabel="Selecciona una opción" />				    		
+	        					 <f:selectItems value="#{resenaMBean.libroDTOs}" var="libro" itemLabel="#{libro.titulo}" itemValue="${libro.idLibro}"/>
+	    					</p:selectOneMenu>	
+					    </div>		
+					    <div class="ui-g-6">
+					    	<h5>Calificación</h5>					    	  
+		                    <p:rating stars="5" value="#{resenaDTO.calificacion}" />
+					    </div>		    
+					    <div class="ui-g-12">
+					    	<h5>Comentario</h5>					    						    
+                    		<p:inputTextarea value="#{resenaDTO.comentario}" style="width:100%" rows="5" cols="30" counter="display" maxlength="500" counterTemplate="{0} caracteres restantes"  autoResize="true" />   
+					   		<br />
+					   		<h:outputText id="display" />
+					   	 </div>					    					    					    					   
+					</div>                  
+            <div class="form-group">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                    <div class="col-sm-2">
+                        <h:commandButton value="Guardar" action="#{resenaMBean.updateResena(resenaDTO)}" class="btn btn-success" style="width: 80px;"></h:commandButton>
+                    </div>
+                    <div class="col-sm-1">
+                    </div>
+                    <div class="col-sm-2">
+                        <h:link outcome="resenas" value="Lista de reseñas" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+           
+        </h:form>
+    </h:body>
+</html>

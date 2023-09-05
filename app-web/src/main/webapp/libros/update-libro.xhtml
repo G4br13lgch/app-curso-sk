@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Editar Libro</title>
+	<h:outputStylesheet name="/css/bootstrap.min.css" />
+</h:head>
+<h:body>
+	<h:form id="form" class="form-horizontal">
+		<div class="form-group">
+			<div class="col-sm-4"></div>
+			<div class="col-sm-4">
+				<h2 style="text-align: center">Editar Libro</h2>
+			</div>
+		</div>
+		<hr />
+		<div class="ui-g">
+			<div class="ui-g-4">
+				<h5>Titulo</h5>
+				<h:inputText id="titulo-id" value="#{libroDTO.titulo}"
+					class="form-control">
+				</h:inputText>
+			</div>
+			<div class="ui-g-4">
+				<h5>ISBN</h5>
+				<h:inputText id="isbn-id" value="#{libroDTO.ISBN}"
+					class="form-control" validatorMessage="El ISBN es requerido">
+					<f:validateRequired />
+				</h:inputText>
+			</div>
+			<div class="ui-g-4">
+				<h5>Fecha de publicación</h5>
+				<p:datePicker id="fecha-button" value="#{libroDTO.fechaPublicacion}"
+					showIcon="true" />
+			</div>
+			<div class="ui-g-4">
+				<h5>Cantidad disponible</h5>
+				<h:inputText id="cantidad-id" value="#{libroDTO.cantidadDisponible}"
+					class="form-control" validatorMessage="La cantidad es requerida">
+					<f:validateRequired />
+				</h:inputText>
+			</div>
+			<div class="ui-g-4">
+				<h5>Autor</h5>
+				<p:selectOneMenu id="menuAutor" value="#{libroDTO.idAutor}">
+					<f:selectItem itemValue="" itemLabel="Selecciona una opción" />
+					<f:selectItems value="#{libroMBean.autorDTOs}" var="autor"
+						itemLabel="#{autor.nombre}" itemValue="${autor.idAutor}" />
+				</p:selectOneMenu>
+			</div>
+			<div class="ui-g-4">
+				<h5>Editorial</h5>
+				<p:selectOneMenu id="menuEditorial" value="#{libroDTO.idEditorial}">
+					<f:selectItem itemValue="" itemLabel="Selecciona una opción" />
+					<f:selectItems value="#{libroMBean.editorialDTOs}" var="editorial"
+						itemLabel="#{editorial.nombre}"
+						itemValue="${editorial.idEditorial}" />
+				</p:selectOneMenu>
+			</div>
+			<div class="ui-g-4">
+				<h5>Categoria</h5>
+				<p:selectOneMenu id="menuCategoria" value="#{libroDTO.idCategoria}">
+					<f:selectItem itemValue="" itemLabel="Selecciona una opción" />
+					<f:selectItems value="#{libroMBean.categoriaDTOs}" var="categoria"
+						itemLabel="#{categoria.nombre}"
+						itemValue="${categoria.idCategoria}" />
+				</p:selectOneMenu>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-4"></div>
+			<div class="col-sm-4">
+				<div class="col-sm-2">
+					<h:commandButton value="Guardar"
+						action="#{libroMBean.updateLibro(libroDTO)}"
+						class="btn btn-success" style="width: 80px;"></h:commandButton>
+				</div>
+				<div class="col-sm-1"></div>
+				<div class="col-sm-2">
+					<h:link outcome="libros" value="Lista de libros"
+						class="btn btn-primary" />
+				</div>
+			</div>
+		</div>
+	</h:form>
+</h:body>
+</html>

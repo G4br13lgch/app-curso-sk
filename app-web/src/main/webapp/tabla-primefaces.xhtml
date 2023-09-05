@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+       xmlns:ui="http://java.sun.com/jsf/facelets">      
+    <h:head>
+        <title>Lista de Usuarios</title>
+    </h:head>
+    <h:body>
+    	<ui:include src="/holaMundo.xhtml"></ui:include>
+        <h:form>        
+            <center>
+                <h2><h:outputText value="Lista de usuarios"/></h2>
+            </center>
+            
+            <p:dataTable var="u" value="#{usuarioMBean.usuarioDTOs}" rows="5"
+                 paginator="true"
+                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                 rowsPerPageTemplate="5,10,15">
+		        <p:column headerText="Id">
+		            <h:outputText value="#{u.idUsuario}" />
+		        </p:column>
+		 
+		        <p:column headerText="Usuario">
+		            <h:outputText value="#{u.usuario}" />
+		        </p:column>
+		 
+		        <p:column headerText="Correo">
+		            <h:outputText value="#{u.correo}" />
+		        </p:column>
+		 
+		        <p:column headerText="Fecha Sesion">
+		            <h:outputText value="#{u.fechaSesion}"/>
+		        </p:column>
+		        
+		        <p:column headerText="Rol">
+		            <h:outputText value="#{u.nomRo}"/>
+		        </p:column>
+		 
+		    </p:dataTable>
+            
+            
+       </h:form>
+    </h:body>
+</html>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+  <modelVersion>4.0.0</modelVersion>
+    
+  <groupId>mx.smartkode.app.curso</groupId>
+    
+  <artifactId>app-curso-live</artifactId>
+    
+  <version>1.0</version>
+    
+  <packaging>pom</packaging>
+    
+  <name>app-curso-live</name>
+    
+  <url>http://maven.apache.org</url>
+    
+  <properties>        
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>  
+    <project.encoding>UTF-8</project.encoding>
+    <java.version>1.8</java.version>		
+	<junit.version>4.12</junit.version>
+	<log4j.version>1.2.17</log4j.version>
+	
+	<!-- DAO -->
+	<javax.persistence.version>2.2</javax.persistence.version>
+	<hibernate.version>5.4.0.Final</hibernate.version>
+	<postgresql.version>42.2.6</postgresql.version>
+	<hikaricp.version>3.3.1</hikaricp.version>
+	
+	<!-- Vista -->
+	<jsf2.version>2.2.20</jsf2.version>
+	<primefaces.version>8.0</primefaces.version>
+	<jstl.version>1.2.1</jstl.version>
+    <tld.version>1.1.2</tld.version>
+    <servlets.version>3.1.0</servlets.version>
+    <jsp.version>2.3.1</jsp.version>
+	
+	<!-- Spring -->
+    <org.springframework.security-version>5.1.0.RELEASE</org.springframework.security-version>   
+    <spring.version>5.1.0.RELEASE</spring.version>
+    <spring.ws.version>3.0.5.RELEASE</spring.ws.version> 
+	
+	<!-- plugins -->
+    <resources-plugin.version>3.0.2</resources-plugin.version>
+    <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>    
+  </properties>
+  
+  <dependencies>
+	<!-- Spring -->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-core</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	
+	<!-- TEST -->
+	<dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+		<version>${junit.version}</version>
+		<scope>test</scope>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-test</artifactId>
+		<version>${spring.version}</version>
+		<scope>test</scope>
+	</dependency>
+	
+	<!-- Logging -->
+	<dependency>
+		<groupId>log4j</groupId>
+		<artifactId>log4j</artifactId>
+		<version>${log4j.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>log4j</groupId>
+	    <artifactId>apache-log4j-extras</artifactId>
+	    <version>${log4j.version}</version>
+	</dependency>
+	
+	<!-- Utilerias -->
+	<dependency>
+	    <groupId>commons-beanutils</groupId>
+	    <artifactId>commons-beanutils</artifactId>
+	    <version>1.9.4</version>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.commons</groupId>
+		<artifactId>commons-lang3</artifactId>
+		<version>3.1</version>
+	</dependency>
+	
+	<!-- POJOS -->
+	<dependency>
+		<groupId>org.projectlombok</groupId>
+		<artifactId>lombok</artifactId>
+		<version>1.18.16</version>
+	</dependency>
+	
+  </dependencies>
+  
+  <modules>      
+    <module>app-persistencia</module>
+    <module>app-negocio</module>
+    <module>app-web</module>
+  </modules>
+</project>

@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html   xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:ui="http://java.sun.com/jsf/facelets">
+<body>
+<div class="ui-g">
+    <div class="ui-g-12 ui-md-2">
+    	<ui:include src="/components/menu.xhtml"></ui:include>	
+    </div>
+    <div class="ui-g-12 ui-md-10 ui-g-nopad">
+        <div class="ui-g-12">
+            <h1>Sistema de Gestión Bibliotecaria</h1>            
+        </div>
+        <div class="ui-g-12 ui-g-nopad">
+            <div class="ui-g">            	
+                <div class="ui-g-12 ui-md-12">
+                	 <ui:include src="#{navigationBean.currentView}" />
+                </div>
+            </div>                       
+        </div>
+    </div>
+    <div class="ui-g-12">
+        Gabriel Campos Hernandez @2023
+    </div>
+</div>
+</body>
+</html>

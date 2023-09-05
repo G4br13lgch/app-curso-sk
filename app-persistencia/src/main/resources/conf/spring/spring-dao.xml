@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/beans    
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+     	http://www.springframework.org/schema/aop/spring-aop.xsd
+     	http://www.springframework.org/schema/data/jpa
+        http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+		http://www.springframework.org/schema/jee
+        http://www.springframework.org/schema/jee/spring-jee-3.2.xsd">
+
+	<import resource="classpath:conf/spring/spring-config.xml" />
+	
+	<!-- ******************************************************************** -->
+	<!-- Base de datos -->
+	<!-- ******************************************************************** -->
+	
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<property name="poolName" value="${jdbc.poolName}" />
+		<property name="maximumPoolSize" value="${jdbc.maximumPoolSize}" />		
+		<property name="connectionTimeout" value="${jdbc.connectionTimeout}" />
+		<property name="minimumIdle" value="${jdbc.minimumIdle}" />
+		<property name="idleTimeout" value="${jdbc.idleTimeout}" />
+		<property name="dataSourceClassName" value="${jdbc.dataSourceClassName}" />
+		<property name="dataSourceProperties">
+			<props>
+				<prop key="user">${jdbc.username}</prop>
+				<prop key="password">${jdbc.passwd}</prop> 
+				<prop key="url">${jdbc.url}</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
+		depends-on="hikariConfig" destroy-method="close">
+		<constructor-arg ref="hikariConfig" />
+	</bean>
+
+	
+	<!-- ******************************************************************** -->
+	<!-- Unidades de Persistencia -->
+	<!-- ******************************************************************** -->
+
+	<!-- Adaptador de JPA -->
+	<bean id="jpaVendorAdapter"
+		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+		<property name="generateDdl" value="false" />
+		<property name="showSql" value="true" />
+		<property name="database" value="${jdbc.jpaDatabase}" />
+		<property name="databasePlatform" value="${jdbc.databasePlatform}" />
+	</bean>
+	
+	<bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.HibernateJpaDialect " />
+
+	<!-- EntityManager Factory -->
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="jpaDialect" ref="jpaDialect" />
+		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
+		<property name="jpaProperties">
+			<props>
+<!-- 				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop> -->
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+                <prop key="format_sql">${hibernate.format_sql}</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor " />
+
+	<bean id="sharedEntityManager"
+		class="org.springframework.orm.jpa.support.SharedEntityManagerBean">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+	
+	<!-- ******************************************************************** -->
+	<!-- Escanneador de clases JPA automático -->
+	<!-- ******************************************************************** -->
+	
+	<jpa:repositories base-package="mx.smartkode.app.persistencia.*.dao" />
+	
+	<!-- ******************************************************************** -->
+	<!-- Transacciones -->
+	<!-- ******************************************************************** -->
+  
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
+
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+</beans>

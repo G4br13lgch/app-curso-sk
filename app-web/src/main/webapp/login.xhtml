@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Login</title>
+        <h:outputStylesheet name="/css/bootstrap.min.css"/>
+        <style type="text/css">
+        	body {
+        		background-image: url("#{resource['images/fondo.png']}");
+			    background-size: cover; /* Ajusta la imagen al tamaño de la ventana del navegador */
+			    background-repeat: no-repeat;			    
+        	}
+        	h1 {
+        		color: white;
+        		font-size: 3rem;
+        	}        	
+        </style>
+    </h:head>
+    <h:body>
+    	<h:form style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+    	<h1>Sistema de gestión bibliotecaria</h1>
+        <p:panel header="Login" style="width:400px; ">        
+        <div class="p-grid p-dir-col">
+		    <div class="p-col">
+		        <div class="box">
+		        	<h:outputLabel for="username" value="Username:" />
+           			<p:inputText id="username" value="#{loginMBean.usuarioDTO.usuario}" />
+		        </div>
+		    </div>
+		    <div class="p-col">
+		        <div class="box">
+		         	<h:outputLabel for="password" value="Password:" />
+            		<p:password id="password" value="#{loginMBean.usuarioDTO.password}" />
+		        </div>
+		    </div>
+		    <div class="p-col">
+		        <div class="box">
+		         	<p:commandButton value="Login" action="#{loginMBean.login()}" ajax="false" />
+		        </div>
+		    </div>
+		</div>                                
+        </p:panel>
+    </h:form>           
+    </h:body>
+</html>

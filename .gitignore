@@ -1,0 +1,33 @@
+
+#Se ignora el directorio target
+target/
+
+#Se ignoran los archivos descriptores para importar a eclipse
+.classpath
+.project
+.settings/
+.metadata/
+Servers/
+RemoteSystemsTempFiles/
+
+#Se ignoran archivos log
+logs/
+spy.log
+*.log
+
+#Archivos de sistema se ignoran
+.DS_Store
+
+#se ingnoran carpetas bin 
+bin/
+
+.tern-project
+
+#Se ignora tar de jdk
+jdk-8u251-linux-x64.tar.gz
+
+outlet-web/docker/wars/
+
+#folder testng
+test-output
+.vscode/settings.json
